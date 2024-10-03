@@ -1,0 +1,79 @@
+body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.left-panel, .right-panel {
+    padding: 20px;
+    border: 1px solid #000;
+    margin-right: 20px;
+}
+
+.left-panel {
+    width: 50%;
+}
+
+.right-panel {
+    width: 40%;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.item-row input[type="text"], .item-row input[type="number"] {
+    padding: 5px;
+    margin-right: 10px;
+    flex: 1;
+}
+
+.add-btn, .remove-btn, .draw-btn {
+    padding: 10px 15px;
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-btn:hover, .remove-btn:hover, .draw-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.continuous-draw {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.continuous-draw input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.results {
+    margin-top: 20px;
+}
+
+.results ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.results li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}

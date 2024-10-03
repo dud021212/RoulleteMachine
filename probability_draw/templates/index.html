@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>확률 추첨기</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        let maxItems = 30;
+
+        function addItem() {
+            let container = document.getElementById('items-container');
+            let currentItems = container.getElementsByClassName('item-row').length;
+            if (currentItems >= maxItems) {
+                alert('목록은 최대 30개까지 추가할 수 있습니다.');
+                return;
+            }
+
+            let div = document.createElement('div');
+            div.className = 'item-row';
+            div.innerHTML = `
+                <input type="text" name="item" placeholder="항목" required>
+                <input type="number" name="probability" step="0.000001" placeholder="확률 (%)" required>
+                <button type="button" class="remove-btn" onclick="removeItem(this)">-</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeItem(button) {
+            let container = document.getElementById('items-container');
+            let currentItems = container.getElementsByClassName('item-row').length;
+            if (currentItems <= 2) {
+                alert('목록은 최소 2개이어야 합니다.');
+                return;
+            }
+            button.parentElement.remove();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h2>추첨 목록</h2>
+            <form method="POST">
+                <div id="items-container">
+                    {% for item, prob in items %}
+                    <div class="item-row">
+                        <input type="text" name="item" placeholder="항목" value="{{ item }}" required>
+                        <input type="number" name="probability" step="0.000001" placeholder="확률 (%)" value="{{ prob }}" required>
+                        {% if loop.length > 2 %}
+                        <button type="button" class="remove-btn" onclick="removeItem(this)">-</button>
+                        {% else %}
+                        <button type="button" class="remove-btn" onclick="removeItem(this)">-</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="add-btn" onclick="addItem()">+</button>
+        </div>
+        <div class="right-panel">
+            <h2>추첨</h2>
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+            <button type="submit" name="draw" class="draw-btn">추첨</button>
+            <div class="continuous-draw">
+                <button type="submit" name="continuous_draw" class="draw-btn">연속추첨</button>
+                <input type="number" name="count" min="1" placeholder="횟수">
+            </div>
+            {% if results %}
+            <div class="results">
+                <h3>결과:</h3>
+                <ul>
+                    {% for result in results %}
+                    <li>{{ result }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+            </form>
+    </div>
+</body>
+</html>
